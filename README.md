@@ -39,6 +39,15 @@ Para sumar una materia nueva: copiar la carpeta de una existente, reemplazar
 `js/data.js` (incluido su `CONFIG.key`, que aísla el progreso de cada app),
 escribir sus juegos en `js/games.js` y agregarla al `index.html` raíz.
 
+Después de tocar cualquier CSS o JS, correr antes de commitear:
+
+```
+python tools/bump-cache.py
+```
+
+Le cuelga a cada asset el hash de su contenido (`style.css?v=d8c6dbce`) para
+que GitHub Pages no sirva la versión cacheada después de un deploy.
+
 ---
 
 Material de estudio personal para la carrera de Diseño Gráfico de UADE.
