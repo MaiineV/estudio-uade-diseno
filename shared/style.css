@@ -52,12 +52,22 @@ button{font-family:inherit;font-size:inherit;cursor:pointer;border:none;backgrou
   padding:20px 14px;position:sticky;top:0;height:100vh;overflow-y:auto;
   display:flex;flex-direction:column;gap:4px;
 }
-.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 18px}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 14px;text-decoration:none;color:inherit}
+a.brand:hover{text-decoration:none}
+a.brand:hover h1{color:var(--acc2)}
+a.brand:hover .dot{transform:scale(1.06)}
+.brand .dot{transition:transform .15s}
 .brand .dot{width:34px;height:34px;border-radius:10px;flex-shrink:0;
   background:conic-gradient(from 210deg,#ff4d6d,#ffb020,#2ecc71,#00d4ff,#7c5cff,#ff4d6d);
   box-shadow:0 0 22px rgba(124,92,255,.5)}
 .brand h1{font-size:15px;font-weight:700;letter-spacing:.2px;line-height:1.2}
 .brand span{display:block;font-size:10.5px;color:var(--txt3);font-weight:500;letter-spacing:.4px;text-transform:uppercase}
+.backlink{display:flex;align-items:center;gap:9px;padding:9px 11px;margin:0 0 4px;
+  border-radius:10px;font-size:13px;font-weight:600;color:var(--txt2);
+  background:var(--panel2);border:1px solid var(--line);text-decoration:none;transition:.15s}
+.backlink:hover{color:var(--txt);border-color:var(--acc);text-decoration:none;transform:translateX(-3px)}
+.backlink .ar{font-size:15px;line-height:1}
+
 .nav-t{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--txt3);padding:14px 10px 6px;font-weight:700}
 .nav a{
   display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:10px;
@@ -326,8 +336,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .mbar{display:none;position:sticky;top:0;z-index:60;align-items:center;gap:12px;
   padding:10px 14px;background:var(--bg2);border-bottom:1px solid var(--line)}
 .mbar .mb-t{flex:1;font-size:16px;font-weight:700;letter-spacing:-.2px}
-.mbar button{width:42px;height:42px;border-radius:11px;background:var(--panel2);
-  border:1px solid var(--line);font-size:18px;display:grid;place-items:center;flex-shrink:0}
+.mbar button,.mbar a.mb-btn{width:42px;height:42px;border-radius:11px;background:var(--panel2);
+  border:1px solid var(--line);font-size:18px;display:grid;place-items:center;flex-shrink:0;
+  color:var(--txt);text-decoration:none}
+.mbar a.mb-btn:hover{text-decoration:none;border-color:var(--acc)}
 .scrim{display:none;position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.55);
   opacity:0;transition:opacity .25s;backdrop-filter:blur(2px)}
 .scrim.on{opacity:1}
