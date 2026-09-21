@@ -1,0 +1,9 @@
+# Los originales de la cátedra viven en Tecnologia/material/.
+# Estas copias sueltas en la raíz quedan fuera del repo para no duplicarlas.
+/*.pdf
+/*.docx
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
