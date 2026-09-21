@@ -7,7 +7,7 @@ const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=(Math.ran
 const norm = s => (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9%\s]/g,'').trim();
 
 /* ---------- PROGRESO (localStorage) ---------- */
-const KEY='uade-tecno-v1';
+const KEY=CONFIG.key;
 let P = load();
 function load(){
   try{ return Object.assign({read:[],cards:{},quizBest:0,streak:0,sim:{}}, JSON.parse(localStorage.getItem(KEY)||'{}')); }
@@ -108,18 +108,7 @@ $('#reset').onclick=()=>{
 /* ============================================================
    INICIO
    ============================================================ */
-const TOP_FACTS = [
- 'Espectro visible: <b>380 – 780 nm</b>',
- 'RGB = <b>16.777.216</b> colores (256³), canales de <b>0 a 255</b>',
- 'Kelvin: cálida <b>≤4500</b> · neutra <b>~5770</b> · fría <b>≥7500</b>',
- 'Variación mínima de tinta perceptible: <b>8 %</b>',
- 'Negro enriquecido: <b>C84 M83 Y73 K80</b> (papel grueso)',
- 'Impresión <b>300 dpi</b> · pantalla <b>72 ppi</b> · gigantografía <b>30–50 dpi</b>',
- 'El <b>ráster se rompe</b> al escalar; el <b>vector nunca</b>',
- 'El gamut del <b>RGB es más amplio</b> que el del CMYK',
- 'Newton <b>1704</b> (física) → Goethe <b>1810</b> (fisiología) → Ostwald <b>s.XX</b> (psicología)',
- 'Conos = <b>color</b> · Bastones = <b>luminosidad</b>'
-];
+const TOP_FACTS = CONFIG.topFacts;
 
 function renderHome(){
   $('#nCards').textContent=CARDS.length;
@@ -161,7 +150,7 @@ function renderTopics(){
       <div class="tb">${t.body}
         <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn ${done?'g':'p'}" data-read="${t.id}">${done?'↺ Marcar como no leída':'✓ Marcar como leída'}</button>
-          <button class="btn g" data-quizmod="${t.t}">Practicar este tema</button>
+          <button class="btn g" data-quizmod="${t.mod||'todos'}">Practicar este tema</button>
         </div>
       </div></article>`;
   }).join('');
@@ -177,14 +166,7 @@ function renderTopics(){
   });
   $$('[data-quizmod]').forEach(b=>b.onclick=e=>{
     e.stopPropagation();
-    const map={'Naturaleza y percepción del color':'Color','Historia de la teoría del color':'Historia',
-      'Atributos del color (modelo HSB)':'Atributos','Temperatura de color (Kelvin)':'Kelvin',
-      'Modelo RGB — síntesis aditiva':'RGB','Modelo CMYK — síntesis sustractiva':'CMYK',
-      'Impresión: negros, tintas especiales y tramas':'Impresión','Ráster vs. Vectorial':'Ráster/Vector',
-      'Formatos de archivo':'Formatos','Resolución, unidades y perfiles de color':'Resolución',
-      'Programas y las 4 dimensiones del diseño digital':'Programas','Hardware y herramientas técnicas':'Técnico'};
-    const mod=map[b.dataset.quizmod]||'todos';
-    go('quiz'); $('#qzMod').value=mod; startQuiz();
+    go('quiz'); $('#qzMod').value=b.dataset.quizmod; startQuiz();
   });
 }
 $('#qTopic').oninput=e=>{
@@ -408,39 +390,33 @@ $('#qzStart').onclick=startQuiz;
 /* ============================================================
    SIMULACRO
    ============================================================ */
-const SIM_MC = QUIZ.filter(q=>['¿Cómo se define el color y cuál es el rango del espectro visible?',
- 'Relacione: I. Newton (Física) · II. Goethe (Fisiología) · III. Ostwald (Psicología) con 1. división cálidos/fríos, 2. descomposición de la luz blanca y primer círculo cromático RYB, 3. foco en la percepción del ojo y colores secundarios.',
- 'Indique la afirmación CORRECTA respecto a la temperatura de color:',
- '¿Cuál es la variación mínima porcentual de tinta para que el ojo perciba un cambio de color en impresión?',
- 'Un diseñador prepara una pieza para revista impresa de alta calidad y otra para redes sociales. ¿Cuál es la configuración correcta?'
-].includes(q.q));
+const SIM_MC = QUIZ.filter(q=>q.sim);
 
 function renderSim(){
   $('#sim').innerHTML=`
     <div class="card" style="margin-bottom:20px">
       <h4 style="font-size:15px;font-weight:700;margin-bottom:8px">📋 Estructura del examen</h4>
-      <p style="font-size:13.6px;color:var(--txt2)">Módulo 1: teoría y física del color · Módulo 2: modelos y síntesis ·
-      Módulo 3: ráster/vector y formatos · Módulo 4: resolución, perfiles y tratamiento digital.
+      <p style="font-size:13.6px;color:var(--txt2)">${CONFIG.simIntro||''}
       Tus respuestas se guardan solas en este navegador.</p>
       <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
         <button class="btn p" id="simShow">Revelar todas las respuestas modelo</button>
-        <button class="btn g" id="simCheck">Corregir los completar</button>
+        ${SIM_FILL.length?'<button class="btn g" id="simCheck">Corregir los completar</button>':''}
         <button class="btn g" id="simClear">Borrar mis respuestas</button>
       </div>
     </div>
 
-    <h3 style="font-size:17px;font-weight:700;margin:26px 0 12px">Parte A · Opción múltiple</h3>
+    ${SIM_MC.length?'<h3 style="font-size:17px;font-weight:700;margin:26px 0 12px">Parte A · Opción múltiple</h3>':''}
     <div id="simMC"></div>
 
-    <h3 style="font-size:17px;font-weight:700;margin:30px 0 12px">Parte B · Completar</h3>
-    <div class="dev">
-      <div class="qn">5 y 10. Completá la tabla de comparación y las unidades mínimas.</div>
+    ${SIM_FILL.length?'<h3 style="font-size:17px;font-weight:700;margin:30px 0 12px">Parte B · Completar</h3>':''}
+    <div class="dev" ${SIM_FILL.length?'':'hidden'}>
+      <div class="qn">${CONFIG.fillTitulo||'Completá los espacios en blanco.'}</div>
       ${SIM_FILL.map(f=>`<div style="margin-bottom:10px;font-size:14px;color:var(--txt2)">
         ${f.pre} <input class="fill" data-f="${f.id}" value="${(P.sim[f.id]||'').replace(/"/g,'&quot;')}"></div>`).join('')}
       <div id="fillFb"></div>
     </div>
 
-    <h3 style="font-size:17px;font-weight:700;margin:30px 0 12px">Parte C · Desarrollo</h3>
+    ${SIM_DEV.length?'<h3 style="font-size:17px;font-weight:700;margin:30px 0 12px">Parte C · Desarrollo</h3>':''}
     <div id="simDev"></div>`;
 
   // Opción múltiple
@@ -485,10 +461,10 @@ function renderSim(){
   $('#simShow').onclick=()=>{
     $$('.model').forEach(m=>m.classList.add('show'));
     $$('[data-reveal]').forEach(b=>b.textContent='Ocultar respuesta modelo');
-    checkFills();
+    if(SIM_FILL.length) checkFills();
     toast('Respuestas modelo reveladas');
   };
-  $('#simCheck').onclick=checkFills;
+  if($('#simCheck')) $('#simCheck').onclick=checkFills;
   $('#simClear').onclick=()=>{P.sim={};save();renderSim();toast('Respuestas borradas')};
 }
 function checkFills(){
@@ -518,16 +494,7 @@ function checkFills(){
 /* ============================================================
    GALERÍA
    ============================================================ */
-const IMGS=[
- ['percepcion-ojo.png','Percepción: sin ojo y cerebro no hay color'],
- ['prisma-newton.png','Newton: descomposición de la luz blanca'],
- ['espectro-a-circulo.png','De la línea recta del espectro al círculo cromático'],
- ['circulo-cromatico.png','Círculo cromático de 12 colores'],
- ['calidos-frios.png','Ostwald: división en cálidos y fríos'],
- ['sintesis-aditiva.png','Síntesis aditiva RGB: la suma da blanco'],
- ['sintesis-sustractiva.png','Síntesis sustractiva CMY: la suma tiende al negro'],
- ['atributos-hsb.png','Matiz, luminosidad y saturación']
-];
+const IMGS = CONFIG.imgs||[];
 function renderGallery(){
   $('#gallery').innerHTML=IMGS.map(([f,c])=>
     `<figure class="fg"><img src="img/${f}" alt="${c}" loading="lazy"><figcaption>${c}</figcaption></figure>`).join('');

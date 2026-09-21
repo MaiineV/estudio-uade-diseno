@@ -347,4 +347,14 @@ function dragify(list){
       list.insertBefore(src, (e.clientY-r.top)/r.height>0.5 ? el.nextSibling : el);
     };
   });
+  // en mobile el drag no es fiable: botones para subir y bajar
+  list.querySelectorAll('.tli').forEach(el=>{
+    const up=document.createElement('button');
+    up.textContent='↑'; up.className='mini'; up.style.cssText='margin-left:auto;flex-shrink:0';
+    up.onclick=e=>{e.stopPropagation(); const p=el.previousElementSibling; if(p) list.insertBefore(el,p)};
+    const dn=document.createElement('button');
+    dn.textContent='↓'; dn.className='mini'; dn.style.cssText='flex-shrink:0';
+    dn.onclick=e=>{e.stopPropagation(); const n=el.nextElementSibling; if(n) list.insertBefore(n,el)};
+    el.append(up,dn);
+  });
 }

@@ -4,10 +4,40 @@
    modelos de parcial de la cátedra.
    ============================================================ */
 
+/* ---------------- 0. CONFIG DE LA MATERIA ---------------- */
+const CONFIG = {
+  key:'uade-tecno-v1',
+  simIntro:'Módulo 1: teoría y física del color · Módulo 2: modelos y síntesis · '+
+           'Módulo 3: ráster/vector y formatos · Módulo 4: resolución, perfiles y tratamiento digital.',
+  fillTitulo:'5 y 10. Completá la tabla de comparación y las unidades mínimas.',
+  topFacts:[
+    'Espectro visible: <b>380 – 780 nm</b>',
+    'RGB = <b>16.777.216</b> colores (256³), canales de <b>0 a 255</b>',
+    'Kelvin: cálida <b>≤4500</b> · neutra <b>~5770</b> · fría <b>≥7500</b>',
+    'Variación mínima de tinta perceptible: <b>8 %</b>',
+    'Negro enriquecido: <b>C84 M83 Y73 K80</b> (papel grueso)',
+    'Impresión <b>300 dpi</b> · pantalla <b>72 ppi</b> · gigantografía <b>30–50 dpi</b>',
+    'El <b>ráster se rompe</b> al escalar; el <b>vector nunca</b>',
+    'El gamut del <b>RGB es más amplio</b> que el del CMYK',
+    'Newton <b>1704</b> (física) → Goethe <b>1810</b> (fisiología) → Ostwald <b>s.XX</b> (psicología)',
+    'Conos = <b>color</b> · Bastones = <b>luminosidad</b>'
+  ],
+  imgs:[
+    ['percepcion-ojo.png','Percepción: sin ojo y cerebro no hay color'],
+    ['prisma-newton.png','Newton: descomposición de la luz blanca'],
+    ['espectro-a-circulo.png','De la línea recta del espectro al círculo cromático'],
+    ['circulo-cromatico.png','Círculo cromático de 12 colores'],
+    ['calidos-frios.png','Ostwald: división en cálidos y fríos'],
+    ['sintesis-aditiva.png','Síntesis aditiva RGB: la suma da blanco'],
+    ['sintesis-sustractiva.png','Síntesis sustractiva CMY: la suma tiende al negro'],
+    ['atributos-hsb.png','Matiz, luminosidad y saturación']
+  ]
+};
+
 /* ---------------- 1. RESUMEN POR UNIDADES ---------------- */
 const TOPICS = [
 {
-  id:'t1', t:'Naturaleza y percepción del color', s:'Qué es el color · espectro visible · ojo y cerebro',
+  id:'t1', mod:'Color', t:'Naturaleza y percepción del color', s:'Qué es el color · espectro visible · ojo y cerebro',
   body:`
   <p><b>El color es una percepción visual</b>, no una propiedad química de los objetos. Depende de cómo la luz
   interactúa con las superficies y de cómo nuestro cerebro interpreta esa energía electromagnética.
@@ -54,7 +84,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t2', t:'Historia de la teoría del color', s:'Newton 1704 · Goethe 1810 · Ostwald s.XX',
+  id:'t2', mod:'Historia', t:'Historia de la teoría del color', s:'Newton 1704 · Goethe 1810 · Ostwald s.XX',
   body:`
   <p>Tres hitos, tres disciplinas. Es una de las preguntas de relación (columna A / columna B) más
   frecuentes del parcial.</p>
@@ -85,7 +115,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t3', t:'Atributos del color (modelo HSB)', s:'Matiz · Saturación · Luminosidad',
+  id:'t3', mod:'Atributos', t:'Atributos del color (modelo HSB)', s:'Matiz · Saturación · Luminosidad',
   body:`
   <figure class="fg"><img src="img/atributos-hsb.png" alt="Sliders de matiz, luminosidad y saturación">
   <figcaption>Los tres sliders: matiz (arriba), luminosidad (medio) y saturación (abajo).</figcaption></figure>
@@ -126,7 +156,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t4', t:'Temperatura de color (Kelvin)', s:'Fría 7500K · Neutra 5770K · Cálida 4500K',
+  id:'t4', mod:'Kelvin', t:'Temperatura de color (Kelvin)', s:'Fría 7500K · Neutra 5770K · Cálida 4500K',
   body:`
   <p>La <b>temperatura de color</b> indica el matiz que puede tener una <b>luz blanca</b> y se mide en
   <b>grados Kelvin (K)</b>. La luz es blanca, pero puede tener distintos matices.</p>
@@ -147,7 +177,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t5', t:'Modelo RGB — síntesis aditiva', s:'Colores luz · inmateriales · 0 a 255 · pantallas',
+  id:'t5', mod:'RGB', t:'Modelo RGB — síntesis aditiva', s:'Colores luz · inmateriales · 0 a 255 · pantallas',
   body:`
   <figure class="fg"><img src="img/sintesis-aditiva.png" alt="Círculos rojo verde y azul que suman blanco">
   <figcaption>Síntesis aditiva: R + G + B al máximo = blanco.</figcaption></figure>
@@ -189,7 +219,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t6', t:'Modelo CMYK — síntesis sustractiva', s:'Colores pigmento · materiales · imprenta',
+  id:'t6', mod:'CMYK', t:'Modelo CMYK — síntesis sustractiva', s:'Colores pigmento · materiales · imprenta',
   body:`
   <figure class="fg"><img src="img/sintesis-sustractiva.png" alt="Círculos cian magenta amarillo que dan negro">
   <figcaption>Síntesis sustractiva: los pigmentos restan luz hasta el negro.</figcaption></figure>
@@ -229,7 +259,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t7', t:'Impresión: negros, tintas especiales y tramas', s:'8% · negro enriquecido · Pantone · AM/FM',
+  id:'t7', mod:'Impresión', t:'Impresión: negros, tintas especiales y tramas', s:'8% · negro enriquecido · Pantone · AM/FM',
   body:`
   <h4>Regla del 8 %</h4>
   <div class="key">Se requiere al menos un <b>8 % de variación</b> en los porcentajes de tinta para que
@@ -264,7 +294,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t8', t:'Ráster vs. Vectorial', s:'La pregunta clave del examen',
+  id:'t8', mod:'Ráster/Vector', t:'Ráster vs. Vectorial', s:'La pregunta clave del examen',
   body:`
   <div class="key"><b>PREGUNTA CLAVE DE EXAMEN FINAL:</b> "La diferencia radical entre un objeto ráster y
   un vector es que <b>el objeto ráster se rompe (se pixela) al escalarse</b> por estar compuesto de píxeles,
@@ -299,7 +329,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t9', t:'Formatos de archivo', s:'JPG · PNG · TIFF · WEBP · GIF · RAW · AI · EPS · SVG',
+  id:'t9', mod:'Formatos', t:'Formatos de archivo', s:'JPG · PNG · TIFF · WEBP · GIF · RAW · AI · EPS · SVG',
   body:`
   <h4>Formatos para pantalla / web (RGB)</h4>
   <div class="tscroll"><table class="t">
@@ -332,7 +362,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t10', t:'Resolución, unidades y perfiles de color', s:'PPI · DPI · 300 vs 72 · sRGB · ICC',
+  id:'t10', mod:'Resolución', t:'Resolución, unidades y perfiles de color', s:'PPI · DPI · 300 vs 72 · sRGB · ICC',
   body:`
   <h4>Resolución</h4>
   <p>Es la <b>cantidad de píxeles por unidad de medida</b> (pulgada o centímetro) que tiene una imagen.
@@ -393,7 +423,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t11', t:'Programas y las 4 dimensiones del diseño digital', s:'Photoshop · Illustrator · Figma · Premiere',
+  id:'t11', mod:'Programas', t:'Programas y las 4 dimensiones del diseño digital', s:'Photoshop · Illustrator · Figma · Premiere',
   body:`
   <h4>Las 4 dimensiones (apuntes de cátedra)</h4>
   <div class="tscroll"><table class="t">
@@ -442,7 +472,7 @@ const TOPICS = [
   `
 },
 {
-  id:'t12', t:'Hardware y herramientas técnicas', s:'Dot pitch · RAM · GPU · histograma · EXIF',
+  id:'t12', mod:'Técnico', t:'Hardware y herramientas técnicas', s:'Dot pitch · RAM · GPU · histograma · EXIF',
   body:`
   <h4>Dot pitch / Pixel pitch</h4>
   <p>Es la <b>distancia física en milímetros entre un píxel y el siguiente</b> en un monitor.
@@ -551,7 +581,7 @@ const CARDS = [
 
 /* ---------------- 3. BANCO DE PREGUNTAS (múltiple opción) ---------------- */
 const QUIZ = [
-{m:'Color',q:'¿Cómo se define el color y cuál es el rango del espectro visible?',
+{m:'Color',q:'¿Cómo se define el color y cuál es el rango del espectro visible?', sim:true,
  o:['Es una propiedad química intrínseca de los objetos; rango entre 100 y 500 nm.',
     'Es una percepción visual fruto de la interacción entre luz, superficie y sistema visual humano (ojo/cerebro); rango entre 380 y 780 nm.',
     'Es la suma de las energías lumínicas visibles e invisibles; rango de 0 a 255 Kelvin.',
@@ -572,7 +602,7 @@ const QUIZ = [
     'Porque pertenece exclusivamente al modelo RGB',
     'Porque su longitud de onda está en el infrarrojo'],
  r:1,e:'El magenta es una interpretación del cerebro al recibir simultáneamente los extremos del espectro (380 nm + 780 nm). No es monocromático.'},
-{m:'Historia',q:'Relacione: I. Newton (Física) · II. Goethe (Fisiología) · III. Ostwald (Psicología) con 1. división cálidos/fríos, 2. descomposición de la luz blanca y primer círculo cromático RYB, 3. foco en la percepción del ojo y colores secundarios.',
+{m:'Historia',q:'Relacione: I. Newton (Física) · II. Goethe (Fisiología) · III. Ostwald (Psicología) con 1. división cálidos/fríos, 2. descomposición de la luz blanca y primer círculo cromático RYB, 3. foco en la percepción del ojo y colores secundarios.', sim:true,
  o:['I-1, II-2, III-3','I-2, II-3, III-1','I-3, II-1, III-2','I-2, II-1, III-3'],
  r:1,e:'Newton → descomposición de la luz (2). Goethe → percepción del ojo y secundarios (3). Ostwald → cálidos vs. fríos (1). Respuesta: I-2, II-3, III-1.'},
 {m:'Historia',q:'¿En qué año y con qué acción creó Newton el círculo cromático?',
@@ -612,7 +642,7 @@ const QUIZ = [
     'Un material de nanotubos de carbono que absorbe hasta el 99,96 % de la luz visible',
     'El negro enriquecido de la cuatricromía'],
  r:2,e:'Vantablack: nanotubos de carbono, absorbe hasta el 99,96 % de la luz visible.'},
-{m:'Kelvin',q:'Indique la afirmación CORRECTA respecto a la temperatura de color:',
+{m:'Kelvin',q:'Indique la afirmación CORRECTA respecto a la temperatura de color:', sim:true,
  o:['Se mide en grados Kelvin; una luz cálida tiene mayor valor de Kelvin que una luz fría.',
     'A menor valor en grados Kelvin (ej. 4500 K), la luz adquiere matices más cálidos; a mayor valor (ej. 7500 K), los matices son más fríos.',
     'La luz neutra estándar para estudio de TV o foto de producto se ubica sobre los 10.000 K.',
@@ -666,7 +696,7 @@ const QUIZ = [
     'La división del círculo cromático en 4 cuadrantes',
     'Un sistema de tintas Pantone'],
  r:1,e:'Cuatricromía = impresión estándar con cian, magenta, amarillo y negro.'},
-{m:'Impresión',q:'¿Cuál es la variación mínima porcentual de tinta para que el ojo perciba un cambio de color en impresión?',
+{m:'Impresión',q:'¿Cuál es la variación mínima porcentual de tinta para que el ojo perciba un cambio de color en impresión?', sim:true,
  o:['1 %','5 %','8 %','15 %'],
  r:2,e:'Se requiere al menos un 8 % de variación para que el cambio sea perceptible.'},
 {m:'Impresión',q:'¿Por qué NO se usa negro enriquecido (C84 M83 Y73 K80) en cuerpos de texto pequeños?',
@@ -740,7 +770,7 @@ const QUIZ = [
  o:['No se pierde nada de información','Ya se está comprimiendo el archivo, y toda compresión implica pérdida de información y de tamaño',
     'La imagen se convierte a CMYK','La imagen pasa a ser vectorial'],
  r:1,e:'Según la cátedra: guardar en jpg o png es de por sí comprimir. Toda compresión indica pérdida de información y de tamaño.'},
-{m:'Resolución',q:'Un diseñador prepara una pieza para revista impresa de alta calidad y otra para redes sociales. ¿Cuál es la configuración correcta?',
+{m:'Resolución',q:'Un diseñador prepara una pieza para revista impresa de alta calidad y otra para redes sociales. ¿Cuál es la configuración correcta?', sim:true,
  o:['Impresión: 72 ppi, RGB, JPG / Pantalla: 300 ppi, CMYK, TIFF',
     'Impresión: 300 ppi/dpi, CMYK, TIFF o PDF / Pantalla: 72-96 ppi, sRGB, JPG o PNG',
     'Impresión: 150 ppi, RGB, WEBP / Pantalla: 300 ppi, CMYK, PNG',

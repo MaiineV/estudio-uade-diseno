@@ -9,7 +9,8 @@ cuestionarios, simulacros y juegos. Todo HTML/CSS/JS plano, sin dependencias ni 
 
 | Materia | Contenido |
 |---|---|
-| [**Tecnología**](Tecnologia/) | Teoría del color y tecnología digital · 12 unidades de resumen, 71 flashcards, 60 preguntas, simulacro con autocorrección y 6 juegos |
+| [**Tecnología**](Tecnologia/) | Teoría del color y tecnología digital · 12 unidades, 71 flashcards, 60 preguntas, simulacro con autocorrección y 6 juegos |
+| [**Semiótica**](Semiotica/) | El signo, la imagen, el mito y el espacio · 15 unidades, 105 flashcards, 90 preguntas, simulacro con respuestas modelo y 6 juegos |
 
 ## Cómo usarlo
 
@@ -22,11 +23,21 @@ El progreso se guarda en el navegador (`localStorage`), así que cada dispositiv
 
 ```
 ├── index.html          índice de materias
-└── Tecnologia/
-    ├── index.html      la app
-    ├── css/ js/ img/
-    └── material/       PDF y DOCX originales de la cátedra
+├── shared/             motor y estilos que comparten todas las materias
+│   ├── app.js          navegación, resumen, flashcards, quiz, simulacro, gestos
+│   └── style.css
+├── Tecnologia/
+│   ├── index.html
+│   ├── js/data.js      todo el contenido de la materia
+│   ├── js/games.js     los juegos propios de la materia
+│   ├── img/
+│   └── material/       originales de la cátedra
+└── Semiotica/          misma estructura
 ```
+
+Para sumar una materia nueva: copiar la carpeta de una existente, reemplazar
+`js/data.js` (incluido su `CONFIG.key`, que aísla el progreso de cada app),
+escribir sus juegos en `js/games.js` y agregarla al `index.html` raíz.
 
 ---
 
