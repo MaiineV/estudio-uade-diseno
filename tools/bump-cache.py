@@ -32,6 +32,12 @@ PAGES = {
         ("js/games.js", "Semiotica/js/games.js"),
         ("../shared/app.js", "shared/app.js"),
     ],
+    "Semiotica2/index.html": [
+        ("../shared/style.css", "shared/style.css"),
+        ("js/data.js", "Semiotica2/js/data.js"),
+        ("js/games.js", "Semiotica2/js/games.js"),
+        ("../shared/app.js", "shared/app.js"),
+    ],
 }
 
 

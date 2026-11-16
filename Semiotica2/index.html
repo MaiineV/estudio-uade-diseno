@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c0d12">
+<meta name="description" content="App de estudio de Semiótica II — Peirce, enunciación, Verón, audiovisual y transmedia · UADE Diseño Gráfico">
+<title>Estudio Semiótica II — UADE Diseño Gráfico</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23ff4d6d'/><circle cx='38' cy='42' r='19' fill='%2300d4ff' opacity='.85'/><circle cx='62' cy='58' r='19' fill='%23ffb020' opacity='.85'/></svg>">
+<link rel="stylesheet" href="../shared/style.css?v=d8c6dbce">
+</head>
+<body>
+
+<!-- barra superior (solo mobile) -->
+<header class="mbar">
+  <a class="mb-btn" href="../index.html" aria-label="Volver a elegir materia" title="Cambiar de materia">←</a>
+  <button id="mMenu" aria-label="Abrir menú">☰</button>
+  <span class="mb-t" id="mTitle">Inicio</span>
+  <button id="mTheme" aria-label="Cambiar tema">🌗</button>
+</header>
+<div class="scrim" id="scrim"></div>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="side" id="side">
+    <a class="brand" href="../index.html" title="Volver a elegir materia">
+      <div class="dot"></div>
+      <div>
+        <h1>Semiótica II</h1>
+        <span>UADE · Diseño Gráfico</span>
+      </div>
+    </a>
+
+    <a class="backlink" href="../index.html"><span class="ar">←</span> Cambiar de materia</a>
+
+    <nav class="nav" id="nav">
+      <div class="nav-t">Estudiar</div>
+      <a href="#inicio"     data-v="inicio"><i>🏠</i> Inicio</a>
+      <a href="#resumen"    data-v="resumen"><i>📚</i> Resumen</a>
+      <a href="#flashcards" data-v="flashcards"><i>🗂️</i> Flashcards</a>
+      <a href="#glosario"   data-v="glosario"><i>📖</i> Glosario</a>
+
+      <div class="nav-t">Practicar</div>
+      <a href="#quiz"      data-v="quiz"><i>✅</i> Cuestionario</a>
+      <a href="#simulacro" data-v="simulacro"><i>📝</i> Simulacro</a>
+      <a href="#juegos"    data-v="juegos"><i>🎮</i> Juegos</a>
+
+      <div class="nav-t">Recursos</div>
+      <a href="#material" data-v="material"><i>📎</i> Material original</a>
+    </nav>
+
+    <div class="side-foot">
+      <button class="mini" id="theme">🌗 Tema</button>
+      <button class="mini" id="reset">↺ Reiniciar progreso</button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- ---------- INICIO ---------- -->
+    <section class="view on" id="v-inicio">
+      <div class="hero">
+        <h3>Peirce, la enunciación, el discurso social y las interfaces</h3>
+        <p>La segunda parte de la materia (Peirce, Benveniste y Bajtín, Verón, lenguaje audiovisual y
+           narrativas transmedia) convertida en herramienta de estudio: 21 unidades de resumen,
+           <b id="nCards">0</b> flashcards, <b id="nQuiz">0</b> preguntas de opción múltiple, un simulacro
+           con respuestas modelo, <b>8 juegos</b> con casos prácticos y un glosario de <b id="nGlo">0</b> términos.</p>
+        <div class="cta">
+          <button class="btn p" data-go="resumen">Empezar por el resumen</button>
+          <button class="btn s" data-go="flashcards">Repasar con flashcards</button>
+          <button class="btn g" data-go="juegos">La matriz de Peirce</button>
+        </div>
+      </div>
+
+      <div class="grid g4" style="margin-bottom:22px">
+        <div class="stat"><div class="n" id="sTopics">0<span style="font-size:15px;color:var(--txt3)">/21</span></div>
+          <div class="l">Unidades leídas</div><div class="bar"><i id="bTopics" style="width:0"></i></div></div>
+        <div class="stat"><div class="n" id="sCards">0<span style="font-size:15px;color:var(--txt3)">/0</span></div>
+          <div class="l">Flashcards dominadas</div><div class="bar"><i id="bCards" style="width:0"></i></div></div>
+        <div class="stat"><div class="n" id="sQuiz">—</div>
+          <div class="l">Mejor nota en quiz</div><div class="bar"><i id="bQuiz" style="width:0"></i></div></div>
+        <div class="stat"><div class="n" id="sStreak">0</div>
+          <div class="l">Récord contrarreloj</div><div class="bar"><i id="bStreak" style="width:0"></i></div></div>
+      </div>
+
+      <div class="grid g2">
+        <div class="card">
+          <h4 style="font-size:16px;font-weight:700;margin-bottom:14px">🎯 Las 10 ideas que hay que tener claras</h4>
+          <ul style="list-style:none;font-size:13.8px;color:var(--txt2)" id="topFacts"></ul>
+        </div>
+        <div class="card">
+          <h4 style="font-size:16px;font-weight:700;margin-bottom:14px">🗓️ Plan de estudio sugerido</h4>
+          <div id="plan"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- RESUMEN ---------- -->
+    <section class="view" id="v-resumen">
+      <h2 class="vt">Resumen completo</h2>
+      <p class="vs">Las 21 unidades armadas a partir de los apuntes de Peirce, Benveniste y Bajtín, el lenguaje
+         audiovisual, Verón y narrativas transmedia. Marcá cada unidad como leída para seguir tu progreso.</p>
+      <div class="toolbar">
+        <div class="search"><input type="text" id="qTopic" placeholder="Buscar: índice, polifonía, contrato, huella, transmedia..."></div>
+        <button class="btn g" id="expandAll">Expandir todo</button>
+        <button class="btn g" id="collapseAll">Contraer todo</button>
+      </div>
+      <div id="topics"></div>
+    </section>
+
+    <!-- ---------- FLASHCARDS ---------- -->
+    <section class="view" id="v-flashcards">
+      <h2 class="vt">Flashcards</h2>
+      <p class="vs">Tocá la tarjeta para darla vuelta y deslizala para calificarla:
+         <b>→ derecha</b> si la supiste, <b>← izquierda</b> si no. Las que fallás vuelven a aparecer.</p>
+
+      <div class="toolbar">
+        <select id="fcCat" class="btn s" style="padding:10px 14px"></select>
+        <button class="btn g" id="fcShuffle">🔀 Mezclar</button>
+        <button class="btn g" id="fcOnlyHard">⚠️ Solo las difíciles</button>
+        <button class="btn g" id="fcRestart">↺ Reiniciar mazo</button>
+      </div>
+
+      <div class="fc-wrap">
+        <div class="fc-prog"><i id="fcBar" style="width:0"></i></div>
+        <div class="fc" id="fcCard">
+          <div class="fc-in">
+            <div class="fc-f"><span class="tag acc cat" id="fcTag">—</span><div class="q" id="fcQ">…</div><div class="hint">tocá o ESPACIO para ver la respuesta</div></div>
+            <div class="fc-b"><span class="tag ok cat">Respuesta</span><div class="a" id="fcA">…</div></div>
+          </div>
+          <div class="fc-ov" id="fcOv"></div>
+        </div>
+        <div class="swipe-hint">← deslizá para calificar →</div>
+        <div class="fc-ctrl">
+          <button class="btn g" id="fcPrev">← Anterior</button>
+          <button class="btn s" id="fcBad" style="border-color:rgba(255,77,109,.5)">😵 No la sabía</button>
+          <button class="btn p" id="fcOk">😎 La sabía</button>
+          <button class="btn g" id="fcNext">Siguiente →</button>
+        </div>
+        <div class="fc-meta" id="fcMeta">—</div>
+      </div>
+    </section>
+
+    <!-- ---------- GLOSARIO ---------- -->
+    <section class="view" id="v-glosario">
+      <h2 class="vt">Glosario</h2>
+      <p class="vs">Todos los conceptos y autores de la materia, ordenados y buscables.</p>
+      <div class="toolbar"><div class="search"><input type="text" id="qGlo" placeholder="Buscar término o definición..."></div></div>
+      <dl class="gl" id="glo"></dl>
+    </section>
+
+    <!-- ---------- QUIZ ---------- -->
+    <section class="view" id="v-quiz">
+      <h2 class="vt">Cuestionario</h2>
+      <p class="vs">Preguntas de opción múltiple con explicación. Elegí un módulo o mezclá todo.</p>
+      <div id="quizHome">
+        <div class="toolbar">
+          <select id="qzMod" class="btn s" style="padding:10px 14px"></select>
+          <select id="qzLen" class="btn s" style="padding:10px 14px">
+            <option value="10">10 preguntas</option>
+            <option value="20">20 preguntas</option>
+            <option value="0">Todas</option>
+          </select>
+        </div>
+        <button class="btn p block" id="qzStart" style="margin-bottom:16px">▶ Empezar</button>
+        <div class="card" style="margin-top:6px">
+          <h4 style="font-size:15px;font-weight:700;margin-bottom:10px">Cómo funciona</h4>
+          <p style="font-size:13.8px;color:var(--txt2)">Respondés, ves al instante si acertaste y por qué.
+          Al final tenés la nota y el repaso de todo lo que fallaste, con la explicación de cada una.
+          Las preguntas y las opciones se mezclan en cada intento.</p>
+        </div>
+      </div>
+      <div class="qz" id="quizPlay" style="display:none"></div>
+    </section>
+
+    <!-- ---------- SIMULACRO ---------- -->
+    <section class="view" id="v-simulacro">
+      <h2 class="vt">Simulacro de parcial</h2>
+      <p class="vs">No hay un examen modelo de esta parte, así que el simulacro está armado a partir de los
+         apuntes: opción múltiple, completar y consignas de desarrollo y análisis de casos.
+         Escribí tus respuestas y después compará con la respuesta modelo.</p>
+      <div id="sim"></div>
+    </section>
+
+    <!-- ---------- JUEGOS ---------- -->
+    <section class="view" id="v-juegos">
+      <h2 class="vt">Juegos</h2>
+      <p class="vs">Ocho formas de practicar: autores, el cuadro de Peirce, clasificaciones, leyes de la interfaz y casos prácticos de análisis.</p>
+      <div class="gsel" id="gameSel"></div>
+      <div id="gameStage" style="display:none"></div>
+    </section>
+
+    <!-- ---------- MATERIAL ---------- -->
+    <section class="view" id="v-material">
+      <h2 class="vt">Material original</h2>
+      <p class="vs">Los apuntes de la cátedra, copiados dentro de esta carpeta para tenerlos a mano.</p>
+      <a class="fi" href="material/Charles Peirce.docx" target="_blank">
+        <span class="fic">📘</span><span><span class="fn">Charles Peirce.docx</span><span class="fd">El signo triádico, semiosis, categorías y las 9 clases</span></span></a>
+      <a class="fi" href="material/Benveniste.docx" target="_blank">
+        <span class="fic">📗</span><span><span class="fn">Benveniste.docx</span><span class="fd">Clase 9 · La enunciación (Benveniste y Bajtín)</span></span></a>
+      <a class="fi" href="material/Clase 10 - Lenguaje audiovisual.docx" target="_blank">
+        <span class="fic">📕</span><span><span class="fn">Clase 10 - Lenguaje audiovisual.docx</span><span class="fd">Clase 10 · Documental, ciudad, medios y Casetti</span></span></a>
+      <a class="fi" href="material/Eliseo Verón.docx" target="_blank">
+        <span class="fic">📙</span><span><span class="fn">Eliseo Verón.docx</span><span class="fd">Semiosis social, huellas y contrato de lectura</span></span></a>
+      <a class="fi" href="material/Narrativas Transmedia.docx" target="_blank">
+        <span class="fic">📒</span><span><span class="fn">Narrativas Transmedia.docx</span><span class="fd">Clase 12 · Scolari, leyes de la interfaz y Simondon</span></span></a>
+
+      <h3 style="font-size:17px;font-weight:700;margin:30px 0 14px">Imágenes de los apuntes</h3>
+      <div class="figrow" id="gallery"></div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/data.js?v=8be20090"></script>
+<script src="js/games.js?v=a9ce4c0b"></script>
+<script src="../shared/app.js?v=1f023db6"></script>
+</body>
+</html>

@@ -7,3 +7,7 @@
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# Carpeta de entrada para materias nuevas: una vez armada, el material
+# queda copiado en <Materia>/material/.
+/Nueva_Materia/

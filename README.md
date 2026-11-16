@@ -11,6 +11,7 @@ cuestionarios, simulacros y juegos. Todo HTML/CSS/JS plano, sin dependencias ni 
 |---|---|
 | [**Tecnología**](Tecnologia/) | Teoría del color y tecnología digital · 12 unidades, 71 flashcards, 60 preguntas, simulacro con autocorrección y 6 juegos |
 | [**Semiótica**](Semiotica/) | El signo, la imagen, el mito y el espacio · 15 unidades, 105 flashcards, 90 preguntas, simulacro con respuestas modelo y 6 juegos |
+| [**Semiótica II**](Semiotica2/) | Peirce, enunciación, Verón, audiovisual y transmedia · 21 unidades, 106 flashcards, 90 preguntas, simulacro con respuestas modelo y 8 juegos con casos prácticos |
 
 ## Cómo usarlo
 
@@ -32,7 +33,8 @@ El progreso se guarda en el navegador (`localStorage`), así que cada dispositiv
 │   ├── js/games.js     los juegos propios de la materia
 │   ├── img/
 │   └── material/       originales de la cátedra
-└── Semiotica/          misma estructura
+├── Semiotica/          misma estructura
+└── Semiotica2/         misma estructura (segunda parte de Semiótica)
 ```
 
 Para sumar una materia nueva: copiar la carpeta de una existente, reemplazar
